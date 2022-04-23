@@ -40,8 +40,9 @@ const LANG = 'ace/mode/java';
     private getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean; } {
       const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
           highlightActiveLine: true,
-          minLines: 33,
+          minLines: 22,
           maxLines: Infinity,
+          fontSize:18
       };
 
       const extraEditorOptions = {
