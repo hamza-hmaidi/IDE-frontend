@@ -4,6 +4,7 @@ import 'ace-builds/src-noconflict/mode-java';
 import 'ace-builds/src-noconflict/theme-twilight';
 import 'ace-builds/src-noconflict/ext-language_tools';
 import 'ace-builds/src-noconflict/ext-beautify';
+import { HttpClient } from '@angular/common/http';
 
 const THEME = 'ace/theme/twilight'; 
 const LANG = 'ace/mode/java';
@@ -17,7 +18,8 @@ const LANG = 'ace/mode/java';
     @ViewChild('codeEditor') codeEditorElmRef!: ElementRef;
     private codeEditor!: ace.Ace.Editor;
     private editorBeautify:any;
-    constructor() { }
+    public output!:String;
+    constructor(private http: HttpClient) { }
 
     ngOnInit () {
       ace.require('ace/ext/language_tools');
@@ -60,6 +62,10 @@ const LANG = 'ace/mode/java';
  }
   public consoleCode() {
     const code = this.codeEditor.getValue();
-    console.log(code);
+    this.http.post<any>('http://localhost:3000/run', { "program": code }).subscribe(data => {
+      this.output = data.output;
+      console.log(this.output)
+  })
+    
 }
 }
